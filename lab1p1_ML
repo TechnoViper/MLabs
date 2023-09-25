@@ -1,0 +1,34 @@
+import numpy as np
+import pandas as pd
+from numpy import linalg as la
+import statistics
+import matplotlib.pyplot as plt
+# segregating data into two vectors
+val = pd.read_excel(r'/content/ml1.xlsx')
+a = val.iloc[:,1:4].to_numpy()
+c = val.iloc[:,4].to_numpy()
+
+#finding dimensionality of the vector
+dimension = val.shape
+print("The dimension using shape is ", dimension)
+dimension1 = val.ndim
+print("The dimension using ndim is ", dimension1)
+
+#how many vectors exist in this vector space
+print("Number of vectors in the vector space are ",len(val))
+
+#rank of matrix
+rankofmatrix = la.matrix_rank(a)
+print("Rank of matrix A is ",rankofmatrix)
+
+#finding pseudo inverse of a matrix
+inverse = la.pinv(a)
+
+x = np.matmul(inverse,c)
+
+print(x)
+
+#classifying into rich and poor
+val['rich/poor'] = np.where(val['Payment (Rs)'] > 200,'Rich','Poor')
+
+print(val)
